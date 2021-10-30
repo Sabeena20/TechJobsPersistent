@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TechJobsPersistent.Data;
 using TechJobsPersistent.Models;
 using TechJobsPersistent.ViewModels;
@@ -41,12 +38,12 @@ namespace TechJobsPersistent.Controllers
                 string name = addEmployerViewModel.Name;
                 string location = addEmployerViewModel.Location;
 
-                List<Employer> existingItems = context.Employers
+                List<Employer> existingItems = context.Employers //no duplicates
                     .Where(el => el.Name == name)
                     .Where(el => el.Location == location)
                     .ToList();
 
-                if(existingItems.Count == 0)
+                if (existingItems.Count == 0)
                 {
                     Employer newEmployer = new Employer
                     {
@@ -55,27 +52,22 @@ namespace TechJobsPersistent.Controllers
                     };
                     context.Employers.Add(newEmployer);
                     context.SaveChanges();
-                    }
-                return Redirect("/Employers");
+                    return Redirect("Index");
 
+                }
+                ViewBag.error = "The employer with same location already exist.";// if record exist,show error msg
+                return View("Add", addEmployerViewModel);
             }
-            else
-            {
-                ViewBag.error = "The location you entered is already exists.";
-                return View(addEmployerViewModel);
+
+                return View("Add", addEmployerViewModel);
             }
-        }
-            
+
 
         public IActionResult About(int id)
         {
-           // Employer theEmployer = context.employers
-               // .Include(e => e.Location)
-                //.Single(e => e.Id == id);
-            //AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel(theEmployer);
-
-
-            return View();
+            Employer theEmployer = context.Employers
+                                 .Single(e => e.Id == id);
+          return View(theEmployer);
         }
     }
 }

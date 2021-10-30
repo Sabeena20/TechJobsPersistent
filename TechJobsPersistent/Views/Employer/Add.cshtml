@@ -1,12 +1,14 @@
 ﻿@model TechJobsPersistent.ViewModels.AddEmployerViewModel
 
 <h1>Add New Employer</h1>
+@if(ViewBag.error != null){
 
-@if(ViewBag.error != null)
-            {
-                <p>@ViewBag.error</p>
-            }
+<p>
+    @ViewBag.error
+</p>
+}
 <form asp-controller="Employer" asp-action="ProcessAddEmployerForm" method="post">
+
     <div class="form-group">
         <label asp-for="Name">Employer Name</label>
         <input asp-for="Name" />

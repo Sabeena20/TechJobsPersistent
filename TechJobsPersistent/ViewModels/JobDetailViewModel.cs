@@ -10,12 +10,16 @@ namespace TechJobsPersistent.ViewModels
         public string Name { get; set; }
         public string EmployerName { get; set; }
         public string SkillText { get; set; }
+        //public Employer Employer { get; set; }
+
+        public string Location { get; set; }
 
         public JobDetailViewModel(Job theJob, List<JobSkill> jobSkills)
         {
             JobId = theJob.Id;
             Name = theJob.Name;
             EmployerName = theJob.Employer.Name;
+            Location = theJob.Employer.Location;
 
             SkillText = "";
             for (int i = 0; i < jobSkills.Count; i++)

@@ -99,6 +99,7 @@ namespace TechJobsPersistent.Controllers
             ViewBag.title = "Jobs with " + ListController.ColumnChoices[searchType] + ": " + searchTerm;
             ViewBag.jobs = displayJobs;
 
+
             return View("Index");
         }
     }
