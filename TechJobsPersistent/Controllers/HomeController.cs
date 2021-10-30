@@ -52,9 +52,10 @@ namespace TechJobsPersistent.Controllers
                     Employer = theEmployer,
                     JobSkills = new List<JobSkill>()
                 };
+
                   foreach (var jobskill in selectedSkills)
                 {
-                    Skill skill = skills.Where(s => s.Id == int.Parse(jobskill)).First();
+                    Skill skill = skills.Where(s => s.Id == int.Parse(jobskill)).First();//first match
                     JobSkill jobSkill = new JobSkill();
                     jobSkill.Skill = skill;
                     newJob.JobSkills.Add(jobSkill);
